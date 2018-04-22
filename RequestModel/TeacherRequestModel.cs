@@ -10,20 +10,11 @@ namespace RequestModel
     public class TeacherRequestModel:BaseRequestModel<Teacher>
     {
         public string keyword { get; set; }
-        public double mincredit { get; set; }
-        public double maxcredit { get; set; }
+        public double TotalCredit { get; set; }
 
-        //public TeacherRequestModel(double minCredit, double maxCredit,string keyword,string orderBy, string isAscending) : base(keyword, orderBy, isAscending)
-        //{
-        //    mincredit = minCredit;
-        //    maxcredit = maxCredit;
-        //}
-
-        public TeacherRequestModel(string keyword, string orderBy, string isAscending) : base(keyword, orderBy, isAscending)
+        public TeacherRequestModel( string keyword, string orderBy, string isAscending) : base(keyword, orderBy, isAscending)
         {
-
         }
-
 
 
         protected override Expression<Func<Teacher,bool>> GetExpression()
@@ -33,14 +24,10 @@ namespace RequestModel
             {
                 ExpressionObj = obj => obj.Name.Contains(Keyword) || obj.Phone.Contains(Keyword) || obj.Courses.Contains(Keyword);
             }
-            //if(mincredit > 0)
-            //{
-            //    ExpressionObj = ExpressionObj.And(obj => obj.minCredit);
-            //}
-            //if (maxcredit > 0)
-            //{
-            //    ExpressionObj = ExpressionObj.And(obj => obj.min);
-            //}
+            if (TotalCredit > 0)
+            {
+                ExpressionObj = ExpressionObj.And(obj => obj.TotalCredit == TotalCredit);
+            }
 
 
             return ExpressionObj;
