@@ -7,10 +7,13 @@ using System.Text;
 
 namespace RequestModel
 {
+
     public class TeacherRequestModel:BaseRequestModel<Teacher>
     {
-        public string keyword { get; set; }
+
         public double TotalCredit { get; set; }
+        public double minCredit { get; set; }
+        public double maxCredit { get; set; }
 
         public TeacherRequestModel( string keyword, string orderBy, string isAscending) : base(keyword, orderBy, isAscending)
         {
@@ -27,6 +30,14 @@ namespace RequestModel
             if (TotalCredit > 0)
             {
                 ExpressionObj = ExpressionObj.And(obj => obj.TotalCredit == TotalCredit);
+            }
+            if (minCredit > 0)
+            {
+                ExpressionObj = ExpressionObj.And(obj => obj.TotalCredit <= minCredit);
+            }
+            if (maxCredit > 0)
+            {
+                ExpressionObj = ExpressionObj.And(obj => obj.TotalCredit >= maxCredit);
             }
 
 
